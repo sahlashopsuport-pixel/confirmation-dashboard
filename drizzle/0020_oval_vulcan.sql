@@ -1,0 +1,21 @@
+CREATE TABLE `assigned_leads` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`historyId` int,
+	`agentId` int NOT NULL,
+	`agentName` varchar(255) NOT NULL,
+	`agentCode` varchar(20),
+	`workDate` varchar(10) NOT NULL,
+	`market` varchar(50) NOT NULL,
+	`sheetTab` varchar(100),
+	`customerName` varchar(255),
+	`phone` varchar(30),
+	`wilaya` varchar(100),
+	`product` varchar(255),
+	`price` varchar(20),
+	`sku` varchar(100),
+	`address2` varchar(255),
+	`orderType` varchar(50),
+	`assignedBy` varchar(100) NOT NULL,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `assigned_leads_id` PRIMARY KEY(`id`)
+);

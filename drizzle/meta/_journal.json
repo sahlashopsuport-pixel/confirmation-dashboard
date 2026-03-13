@@ -1,0 +1,181 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1771599337457,
+      "tag": "0000_pink_spectrum",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1771599495231,
+      "tag": "0001_abnormal_nightcrawler",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1771600794934,
+      "tag": "0002_closed_scalphunter",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1771637321074,
+      "tag": "0003_lonely_masque",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1771672866744,
+      "tag": "0004_left_bucky",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1771677222714,
+      "tag": "0005_ancient_warpath",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1771707888607,
+      "tag": "0006_brief_silhouette",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1771933032108,
+      "tag": "0007_square_randall_flagg",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1772026396449,
+      "tag": "0008_clumsy_starfox",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1772036621609,
+      "tag": "0009_busy_jackpot",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1772038137632,
+      "tag": "0010_conscious_inertia",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1772207000640,
+      "tag": "0011_married_doomsday",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "5",
+      "when": 1772322311803,
+      "tag": "0012_lowly_carnage",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "5",
+      "when": 1772377799213,
+      "tag": "0013_dusty_warbound",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "5",
+      "when": 1772451553400,
+      "tag": "0014_abnormal_inhumans",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "5",
+      "when": 1772471399842,
+      "tag": "0015_hard_beyonder",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "5",
+      "when": 1772485922276,
+      "tag": "0016_naive_dormammu",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "5",
+      "when": 1772494198847,
+      "tag": "0017_tiresome_vindicator",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "5",
+      "when": 1772645586943,
+      "tag": "0018_overrated_lord_tyger",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "5",
+      "when": 1772664871740,
+      "tag": "0019_aspiring_big_bertha",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "5",
+      "when": 1772766059788,
+      "tag": "0020_oval_vulcan",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "5",
+      "when": 1772804448120,
+      "tag": "0021_handy_fabian_cortez",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "5",
+      "when": 1772808287584,
+      "tag": "0022_bouncy_madrox",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "5",
+      "when": 1773159176843,
+      "tag": "0023_lethal_shooting_star",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "5",
+      "when": 1773199548639,
+      "tag": "0024_romantic_daredevil",
+      "breakpoints": true
+    }
+  ]
+}

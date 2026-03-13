@@ -1,0 +1,1 @@
+ALTER TABLE `dashboard_users` MODIFY COLUMN `dashboard_role` enum('user','super_admin','collector') NOT NULL DEFAULT 'user';

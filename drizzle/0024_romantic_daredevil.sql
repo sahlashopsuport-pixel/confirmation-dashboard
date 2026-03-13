@@ -1,0 +1,41 @@
+CREATE TABLE `suivi_cached_orders` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`tracking` varchar(100) NOT NULL,
+	`client` varchar(255) NOT NULL,
+	`phone` varchar(20) NOT NULL,
+	`phone2` varchar(20),
+	`adresse` text,
+	`reference` varchar(100),
+	`montant` varchar(20) NOT NULL,
+	`wilayaId` int NOT NULL,
+	`wilayaName` varchar(100) NOT NULL,
+	`status` varchar(50) NOT NULL,
+	`statusLabel` varchar(100) NOT NULL,
+	`reasonCategory` varchar(50) NOT NULL,
+	`latestReasonText` text,
+	`latestReasonJson` text,
+	`statusReasonJson` text,
+	`products` text,
+	`orderCreatedAt` varchar(50),
+	`lastUpdatedAt` varchar(50),
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `suivi_cached_orders_id` PRIMARY KEY(`id`),
+	CONSTRAINT `suivi_cached_orders_tracking_unique` UNIQUE(`tracking`)
+);
+--> statement-breakpoint
+CREATE TABLE `suivi_sync_log` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`status` varchar(20) NOT NULL,
+	`pagesScanned` int NOT NULL DEFAULT 0,
+	`ordersScanned` int NOT NULL DEFAULT 0,
+	`problemsFound` int NOT NULL DEFAULT 0,
+	`ordersRemoved` int NOT NULL DEFAULT 0,
+	`durationMs` int,
+	`errorMessage` text,
+	`triggeredBy` varchar(100) NOT NULL DEFAULT 'auto',
+	`startDate` varchar(10),
+	`endDate` varchar(10),
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `suivi_sync_log_id` PRIMARY KEY(`id`)
+);

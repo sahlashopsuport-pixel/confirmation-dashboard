@@ -1,0 +1,1 @@
+ALTER TABLE `assignment_history` ADD `workDate` varchar(10);

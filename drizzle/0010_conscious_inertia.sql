@@ -1,0 +1,1 @@
+ALTER TABLE `agent_sheets` ADD `agentEmail` varchar(320);

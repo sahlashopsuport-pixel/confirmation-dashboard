@@ -1,0 +1,23 @@
+CREATE TABLE `salary_records` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`userId` int NOT NULL,
+	`username` varchar(100) NOT NULL,
+	`year` int NOT NULL,
+	`month` int NOT NULL,
+	`fixedSalary` int NOT NULL DEFAULT 0,
+	`deliveredAlgeria` int NOT NULL DEFAULT 0,
+	`deliveredLibya` int NOT NULL DEFAULT 0,
+	`deliveredViconis` int NOT NULL DEFAULT 0,
+	`deliveredTunisia` int NOT NULL DEFAULT 0,
+	`commissionPerOrder` int NOT NULL DEFAULT 100,
+	`goodVideos` int NOT NULL DEFAULT 0,
+	`avgVideos` int NOT NULL DEFAULT 0,
+	`absenceDays` int NOT NULL DEFAULT 0,
+	`bonus` int NOT NULL DEFAULT 0,
+	`deduction` int NOT NULL DEFAULT 0,
+	`notes` text,
+	`updatedBy` varchar(100),
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `salary_records_id` PRIMARY KEY(`id`)
+);

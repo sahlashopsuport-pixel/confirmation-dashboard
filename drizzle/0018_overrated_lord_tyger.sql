@@ -1,0 +1,1 @@
+ALTER TABLE `lead_inbox_batches` ADD `assignedAt` timestamp;

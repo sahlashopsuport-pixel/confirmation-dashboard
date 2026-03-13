@@ -1,0 +1,40 @@
+CREATE TABLE `delivery_orders` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`tracking` varchar(100) NOT NULL,
+	`partner` varchar(50) NOT NULL,
+	`reference` varchar(100),
+	`clientName` varchar(255),
+	`phone` varchar(20),
+	`phone2` varchar(20),
+	`wilaya` varchar(100),
+	`commune` varchar(100),
+	`address` text,
+	`product` text,
+	`remarque` text,
+	`amount` int,
+	`status` varchar(50) NOT NULL,
+	`statusRaw` varchar(100),
+	`agentCode` varchar(20),
+	`agentId` int,
+	`mediazCode` varchar(50),
+	`shippedAt` timestamp,
+	`uploadBatchId` varchar(50),
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `delivery_orders_id` PRIMARY KEY(`id`),
+	CONSTRAINT `delivery_orders_tracking_unique` UNIQUE(`tracking`)
+);
+--> statement-breakpoint
+CREATE TABLE `delivery_uploads` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`batchId` varchar(50) NOT NULL,
+	`partner` varchar(50) NOT NULL,
+	`filename` varchar(255) NOT NULL,
+	`totalRows` int NOT NULL,
+	`newOrders` int NOT NULL DEFAULT 0,
+	`updatedOrders` int NOT NULL DEFAULT 0,
+	`uploadedBy` varchar(100) NOT NULL,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `delivery_uploads_id` PRIMARY KEY(`id`),
+	CONSTRAINT `delivery_uploads_batchId_unique` UNIQUE(`batchId`)
+);

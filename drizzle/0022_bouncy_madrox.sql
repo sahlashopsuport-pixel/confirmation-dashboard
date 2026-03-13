@@ -1,0 +1,1 @@
+ALTER TABLE `dashboard_users` ADD `lastActiveAt` timestamp;

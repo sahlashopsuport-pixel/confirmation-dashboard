@@ -1,0 +1,1 @@
+ALTER TABLE `dashboard_users` ADD `dashboard_role` enum('user','super_admin') DEFAULT 'user' NOT NULL;

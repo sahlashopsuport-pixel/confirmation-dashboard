@@ -1,0 +1,865 @@
+# Project TODO
+
+- [x] Basic homepage layout
+- [x] Navigation menu
+- [x] Google Sheets data parsing (gviz API)
+- [x] KPI cards (total orders, confirmed, cancelled, conf rate, top performer, postponed)
+- [x] Agent performance ranking table (sortable)
+- [x] Status distribution pie chart
+- [x] Weekly breakdown stacked bar chart
+- [x] Confirmation rate by agent bar chart
+- [x] Agent detail modal with weekly breakdown
+- [x] Multi-sheet support (one per confirmateur)
+- [x] Auto-refresh every 1 minute
+- [x] Delete agent functionality
+- [x] Manage agents panel
+- [x] Live status indicator with pulse animation
+- [x] Light theme redesign (matching reference dashboard)
+- [x] Fix upsell calculation (quantity > 1, rate = upsell/total leads)
+- [x] Add upsell qty column to agent table
+- [x] Database integration for sheet URLs (server-side persistence)
+- [x] Auto-load saved sheets from database on page open
+- [x] API endpoints for CRUD operations on agent sheets
+- [x] Vitest tests for sheets API
+- [x] Login page with username/password
+- [x] Password hashing and session management
+- [x] Protect dashboard route behind authentication
+- [x] Default admin account (admin / scalex2026)
+- [x] Multi-country dashboard support (Algeria, Viconis, Libya, Tunisia)
+- [x] Country selector/navigation in header or sidebar
+- [x] Filter agents by country/dashboard
+- [x] Each dashboard shows only its own agents
+- [x] Manage agents panel scoped to current country
+- [x] Add new agent scoped to current country
+- [x] Cache loaded dashboard data per country for instant tab switching
+- [x] Add Scalex logo to login page
+- [x] Set Scalex logo as browser favicon
+- [x] Viconis: Parse column N (TYPE) from Google Sheets (NORMAL vs ABONDON)
+- [x] Viconis: Show confirmation rate breakdown by TYPE in dashboard
+- [x] Viconis: Show cancelled percentage by TYPE
+- [x] Fix: Type Breakdown section should only show on Viconis dashboard, not all countries
+- [x] Viconis: KPIs show Normal-only confirmation total and rate (excluding abandoned)
+- [x] Viconis: Agent table shows Normal count and Abandoned count per agent
+- [x] Viconis: Agent table shows Normal confirmation rate per agent
+- [x] SKU Performance: Separate page/tab for SKU-level analysis
+- [x] SKU Performance: Aggregate all agents' orders by SKU (column M) per country
+- [x] SKU Performance: Sortable table with SKU name, orders, confirmed, cancelled, conf rate, cancel rate
+- [x] SKU Performance: Country filter dropdown (Algeria, Viconis, Libya, Tunisia, All)
+- [x] SKU Performance: Search bar to find specific products
+- [x] SKU Performance: Summary KPIs (total SKUs, best/worst performing)
+- [x] SKU Performance: Default sort by total orders descending
+- [x] SKU Performance: Click-to-expand SKU rows showing per-agent breakdown
+- [x] SKU Performance: Per-agent stats (orders, confirmed, cancelled, conf rate) for each SKU
+- [x] SKU Performance: Agent breakdown sorted by confirmation rate descending
+- [x] SKU Performance: KPI cards update dynamically based on search/filter (show totals for filtered results)
+- [x] Product Filter: Extract column G (اسم المنتج) product name during sheet parsing
+- [x] Product Filter: Detect product category (Testicalm if contains "testicalm", Menopause if contains "meno")
+- [x] Product Filter: Add product filter dropdown (All / Testicalm / Menopause) to Algeria dashboard
+- [x] Product Filter: Filter agent stats by selected product — orders, confirmed, cancelled, conf rate per product
+- [x] Product Filter: KPI cards update based on product filter selection
+- [x] Agent Activity: Track status column changes to detect active agents (not just sheet modifications)
+- [x] Agent Activity: Distinguish agent work (status updates) from Hadjer's affectation (new rows with empty status)
+- [x] Agent Activity: Poll on each data refresh and compare status counts
+- [x] Agent Activity: Show Active (green) / Idle (yellow) / Offline (gray) indicator next to each agent
+- [x] Agent Activity: Active = status changed in last 5 min, Idle = 5-30 min, Offline = 30+ min
+- [x] Agent Activity: Activity summary bar in header (X Active, Y Idle, Z Offline)
+- [x] Agent Activity: Indicators in agent table and agent quick view cards
+- [x] Fix: Agent activity stuck on "Checking..." — rewrite to use already-loaded data instead of separate API calls
+- [x] Fix: Agent activity not updating on auto-refresh — added refreshCount trigger to useEffect dependency
+- [x] Fix: Agent activity still only updates on manual refresh button, not on auto-refresh interval (same root cause as auto-refresh)
+- [x] Fix: Entire auto-refresh broken — root cause: setInterval was constantly torn down due to unstable loadData dependency. Fixed by using refs for the interval callback
+- [x] Change "Waiting for activity" to "Offline" after 3 minutes of no detected changes
+- [x] Remove debug console logs from useDashboard and useAgentActivity
+- [x] Assign Leads MVP: Server-side Google Sheets write helper using service account
+- [x] Assign Leads MVP: tRPC procedure to append rows to agent sheets
+- [x] Assign Leads MVP: Vitest for lead parsing, phone formatting, row mapping
+- [x] Assign Leads MVP: Frontend UI — paste leads, select agent + tab, preview, assign
+- [x] Assign Leads MVP: Route wiring and live test with Soheib's TEST tab
+- [x] Assign Leads MVP: Sheet tab selector (choose which tab to write to)
+- [x] Assign Leads MVP: Phone formatting — strip 213 country code, ensure leading 0
+- [x] Fix: Lead parser column mapping wrong — auto-detect Shopify raw format (name,phone,...,wilaya,product,...,price,...,date) vs simple export
+- [x] Fix: Phone numbers written to sheet — clean digits, no spaces, leading 0
+- [x] Fix: Date format DD/MM/YYYY (e.g. 04/02/2026) instead of YYYY-MM-DD
+- [x] Fix: Product name UPPERCASE in sheet output
+- [x] Fix: Clear black background formatting on newly appended rows (white bg, black text)
+- [x] Fix: Phone numbers forced as text in Google Sheets — RAW input + apostrophe prefix to prevent number formatting
+- [x] Fix: Phone apostrophe — switched back to USER_ENTERED so apostrophe is hidden text prefix, not visible
+- [x] Add data validation dropdowns to appended rows: Col B (Status: تأكيد,إلغاء,تأجيل,اتصل 1-6,قيد الانتظار,رقم مغلق), Col C (Qty: 1-9), Col D (Delivery: نعم,لا)
+- [x] Add conditional formatting for dropdown colors: Status (11 color rules), Delivery (نعم=gold, لا=pink)
+- [x] Fix: Black background on columns N+ (right side) — extended white bg formatting to 26 columns (A-Z)
+- [x] Fix: Column widths getting narrowed after lead assignment — changed insertDataOption from INSERT_ROWS to OVERWRITE
+- [x] Fix: Prevent duplicate conditional formatting rules stacking on repeated assignments — delete all existing rules before re-applying
+- [x] Fix: Upsell orders (multi-line) being skipped — merge continuation lines into parent lead, capture upsell price and qty from continuation lines
+- [x] Multi-agent split: Backend procedure (splitAssign) to write leads to multiple agent sheets in one action
+- [x] Multi-agent split: Step-based flow (country → week → paste → split → confirm → done)
+- [x] Multi-agent split: Country selector as first step
+- [x] Multi-agent split: Week tab selection applies to ALL agents at once
+- [x] Multi-agent split: Agent list filtered by country with checkbox + lead count
+- [x] Multi-agent split: "Split Equally" button + manual lead count input per agent
+- [x] Multi-agent split: Live counter (total / assigned / remaining)
+- [x] Safeguard: Hard cap on lead count input (can't exceed remaining)
+- [x] Safeguard: Block assign if leads remain unassigned
+- [x] Safeguard: Confirmation summary table before final assign
+- [x] Safeguard: Show success/failure per agent after assignment
+- [x] Safeguard: Disable agents with no sheet URL (grayed out)
+- [x] Safeguard: Duplicate paste detection (warn if same batch pasted again)
+- [x] Manage panel: Add editable agent name (since auto-extracted names from sheets aren't clean)
+- [x] Manage panel: Add agent code field (editable) to each agent card
+- [x] Manage panel: Connection check — verify service account has editor access to agent's sheet
+- [x] Manage panel: Show green checkmark/red X for connection status
+- [x] Fix: Connection check returns green even when service account email is NOT shared as editor on the sheet — already fixed: testConnection does 2-step check (read via spreadsheets.get + write via updateSpreadsheetProperties), returns canRead/canWrite flags, frontend shows green/orange/red badges
+- [x] Failed leads recovery: Backend returns failedLeadIndices for each failed agent in splitAssign response
+- [x] Failed leads recovery: Show expandable list of failed leads (name, phone, wilaya, product, price) per agent
+- [x] Failed leads recovery: "Copy Failed Leads" button to clipboard (tab-separated, ready to re-paste)
+- [x] Failed leads recovery: "Retry Failed Leads" button to re-assign only failed leads to different agents
+- [x] Failed leads recovery: "Copy All Failed" button for all errors combined
+- [x] Failed leads recovery: Total affected leads count in error header
+- [x] 100 vitest tests passing (connection test response, failed lead recovery logic, index tracking)
+- [x] Libya leads: Parse Libya Shopify export format (11 columns → 9 for assignment)
+- [x] Libya leads: Strip 218 prefix from phone numbers
+- [x] Libya leads: Map columns: creation date, product name, full name, phone (no 218), adress 1, adress 2, total price, sku, order type
+- [x] Libya leads: Update backend splitAssign to handle Libya column format
+- [x] Libya leads: Update frontend AssignLeads to support Libya market-specific parsing
+- [x] Libya leads: Write vitest tests for Libya lead parsing
+- [x] Lead preview step: show parsed leads table before assignment step
+- [x] Fix: Libya parser skipping upsell orders — handle CSV-style quoted multi-line fields (product/SKU wrapped in quotes with newlines)
+- [x] Untreated leads: Backend function to count rows with empty status (col B) per agent sheet
+- [x] Untreated leads: tRPC procedure to fetch untreated counts for all agents
+- [x] Untreated leads: Show untreated count in dashboard agent table/cards
+- [x] Untreated leads: Show untreated count in AssignLeads agent selection step
+- [x] Fix: Untreated leads count showing 0 for all agents
+- [x] Fix: Untreated counts — dashboard uses last tab (most recent), AssignLeads uses selected week tab
+- [x] Fix: Untreated counts Zod schema — z.record keys must be z.string() since JSON serializes object keys as strings
+- [x] Fix: Untreated leads count should only count rows with actual lead data (product/client name/phone in cols G/H/I), not date-only placeholder rows
+- [x] Fix: Dashboard untreated leads count showing 0 — switched agentIdMap from name-based to sheetUrl-based lookup
+- [x] Untreated leads: Fetch ALL tabs (all weeks) per agent and sum untreated across all weeks
+- [x] Untreated leads: Same logic — rows with lead data (product/name/phone) but empty status = pending
+- [x] Untreated leads: AssignLeads still uses single-tab logic when specific tab is selected
+- [x] Viconis Assign: Parse Viconis lead format (product name, full name, phone, address, price, sku, ip, creation date, type, order number)
+- [x] Viconis Assign: Map Viconis columns to standard agent sheet format
+- [x] Viconis Assign: Strip 213 prefix from phone numbers
+- [x] Viconis Assign: Include TYPE column (NORMAL/ABONDON) in agent sheet
+- [x] Viconis Assign: Wire Viconis into AssignLeads frontend flow
+- [x] Viconis Assign: Write vitest tests for Viconis lead parsing
+- [x] Resilience: Add retry wrapper with exponential backoff for Google Sheets API calls
+- [x] Resilience: Auto-retry week tab loading on failure instead of showing error immediately
+- [x] Resilience: Cache connection check results to prevent red/green flicker (5 min TTL)
+- [x] Resilience: Add retry button on week tab error screen
+- [x] Resilience: Stagger connection checks with 300ms delay to reduce rate limiting
+- [x] Duplicates: Detect duplicate leads by phone number after paste/parse
+- [x] Duplicates: Show duplicate count and highlight duplicates in preview (red rows + DUP badge)
+- [x] Duplicates: Add "Remove Duplicates" button to clean list before assignment
+- [x] Duplicates: Works for all countries (Algeria, Libya, Tunisia, Viconis) — phone normalization strips 213/218/216
+- [x] Duplicates: Frontend-only logic using useMemo, no extra backend needed
+- [x] Date Filter: Add date dropdown to main dashboard filter bar
+- [x] Date Filter: Filter grouped agent data by selected date (first column = date)
+- [x] Date Filter: Recalculate KPIs, charts, and agent table for selected date only
+- [x] Date Filter: Default to "All dates" showing everything as current behavior
+- [x] Date Filter: Works across all countries (Algeria, Libya, Viconis)
+- [x] Date Filter: Chains with product filter (both can be active simultaneously)
+- [x] Date Filter: Clear button to reset date filter
+- [x] Date Filter: Dates sorted newest first in dropdown
+- [x] Date Range Picker: Build DateRangePicker component with dual calendar view
+- [x] Date Range Picker: Quick presets sidebar (Today, Yesterday, Last 7/14/30 days, This/Last week, This/Last month, Maximum)
+- [x] Date Range Picker: Click-to-select date range on calendars
+- [x] Date Range Picker: Display selected range in trigger button
+- [x] Date Range Picker: Update/Cancel buttons
+- [x] Date Range Picker: Update filterDashboardByDate to support date ranges
+- [x] Date Range Picker: Wire into Home.tsx replacing simple dropdown
+- [x] Date Range Picker: 17 vitest tests for date range filtering logic (157 total tests passing)
+- [x] History: Database schema for assignment_history and assignment_history_items tables
+- [x] History: DB helpers for inserting and querying assignment history
+- [x] History: tRPC procedures for listing history, getting detail, and logging new assignments
+- [x] History: Wire history logging into splitAssign and single assign flows
+- [x] History: Frontend History page with table view (date, user, country, week, agents, lead count, status)
+- [x] History: Detail view showing per-agent breakdown and individual leads assigned
+- [x] History: Filters by country, date range, agent
+- [x] History: Search by agent name or lead phone
+- [x] History: Navigation tab in top nav bar
+- [x] History: Vitest tests for history DB helpers and procedures (172 total tests passing)
+- [x] Rate Limit Fix: Audit Google Sheets API read calls during lead assignment
+- [x] Rate Limit Fix: Reduce unnecessary reads — merged 2 spreadsheets.get into 1 in appendRows
+- [x] Rate Limit Fix: Add quota-aware retry — detect 429 + 403 quota messages, 15s base backoff for quota errors
+- [x] Rate Limit Fix: Stagger per-agent writes — 1.5s delay between agents in splitAssign
+- [x] Rate Limit Fix: Batch untreated counts — 3 agents at a time with 500ms gap, sequential tab reads
+- [x] Rate Limit Fix: Cache getSheetNames results for 3 minutes to avoid repeated reads
+- [x] TikTok Parser: Detect TikTok lead format (different columns: full name, phone number, adress 1, adress2, product name, sku, code, code 2)
+- [x] TikTok Parser: Auto-fill date with today's date (assignment date) since TikTok leads have no date
+- [x] TikTok Parser: Fix phone numbers — remove spaces, replace +213 prefix with 0 (handled by existing formatPhone)
+- [x] TikTok Parser: Map columns correctly (adress2 → wilaya, product name → product, etc.)
+- [x] TikTok Parser: Integrate into paste/preview flow with auto-detection (header or +213 phone pattern)
+- [x] TikTok Parser: 12 vitest tests for TikTok lead parsing and phone formatting (184 total tests passing)
+- [x] TikTok Parser: Set default price to 3800 for all TikTok leads (standard price)
+- [x] Multi-Paste: Add batch tabs on Paste step (Normal, Abandons, TikTok) for Algeria/Viconis
+- [x] Multi-Paste: Parse each batch independently with correct parser
+- [x] Multi-Paste: Show combined preview with per-type breakdown counts and Batch column
+- [x] Multi-Paste: Stratified shuffle algorithm — distribute lead types proportionally across agents
+- [x] Multi-Paste: Custom split quantities still work — each agent gets proportional mix of all types
+- [x] Multi-Paste: Stratified Shuffle Active banner in preview with type badges
+- [x] Multi-Paste: 13 vitest tests for stratified shuffle + groupLeadsByType (197 total tests passing)
+- [x] Multi-Paste Fix: Parse button renamed to Validate, stays on Paste step with green checkmark
+- [x] Multi-Paste Fix: Shuffle & Continue button at bottom of Paste step (enabled when 1+ batches parsed)
+- [x] Multi-Paste Fix: isBatchParseRef prevents global onSuccess from auto-advancing to preview
+- [x] Safety Audit: Strengthen TikTok auto-detection — require 2+ matching lines AND no date column present
+- [x] Safety Audit: Add pre-flight validation in splitAssign — reject out-of-bounds lead indices before writing
+- [x] Safety Audit: Add post-flight validation in splitAssign — verify total written rows matches expected total
+- [x] Safety Audit: 26 new vitest tests for TikTok false-positive prevention, lead count preservation, index integrity, phone digit preservation (217 total tests passing)
+- [x] Performance Audit: Check browser console logs for errors and warnings
+- [x] Performance Audit: Check network requests for slow/failed API calls
+- [x] Performance Audit: Check server logs for errors and bottlenecks
+- [x] Performance Audit: Audit frontend for re-render issues, unstable refs, heavy computations
+- [x] Performance Audit: Audit bundle size and lazy loading opportunities
+- [x] Performance Audit: Audit server-side caching and API call patterns
+- [x] Performance Audit: Implement fixes — concurrent loading, code splitting, query caching, stable refs, server-side cache
+- [x] Performance Audit: All 217 tests passing after fixes
+- [x] Lead Score: Build scoring engine with Algeria product economics (profit per lead formula)
+- [x] Lead Score: Normalize to 0-100 scale, no actual profit amounts shown
+- [x] Lead Score: Integrate into agent table ranking (default sort by score)
+- [x] Lead Score: Show score badge in agent table with color coding (teal/blue/amber/coral)
+- [x] Lead Score: Top Performer KPI uses lead score instead of conf rate
+- [x] Lead Score: Agent Quick View cards show lead score + upsell rate + progress bar based on score
+- [x] Lead Score: 26 vitest tests for scoring logic (243 total tests passing)
+- [x] Lead Score: Remove score number display — keep only rank (#1, #2, #3) based on profit-per-lead
+- [x] Lead Score: Remove score badge from agent table, quick view cards, and KPI
+- [x] Lead Score: Keep all other data visible (conf rate, upsell, orders, cancel rate) as usual
+- [x] Product Filter: Read unique product names from product column across all agent sheets
+- [x] Product Filter: Build multi-select dropdown showing all unique product names
+- [x] Product Filter: Filter orders by selected products and recalculate all KPIs/charts/agent stats
+- [x] Product Filter: Integrate into dashboard header alongside existing filters
+- [x] Product Filter: Write tests for product extraction and filtering logic (260 total tests passing)
+- [x] Fix: KPI "Total Orders" card overflowing with all selected product names in subtitle
+- [x] Fix: Header bar orders count not updating with filters (showed raw data count)
+- [x] Fix: Filter summary text too long — shows "X products" when >2 selected instead of listing all names
+- [x] Sheet Filter Fix: Research Google Sheets API — gviz endpoint respects basic filters, Sheets API v4 batchUpdate can clear them
+- [x] Sheet Filter Fix: Implement clearBasicFilter, clearAllSheetFilters, detectActiveFilters in googleSheets.ts
+- [x] Sheet Filter Fix: Add tRPC procedures (clearFilters mutation, detectFilters query) in leads router
+- [x] Sheet Filter Fix: Integrate auto-clear into useDashboard — clears all agent sheet filters before data refresh
+- [x] Sheet Filter Fix: Write 9 vitest tests for filter clearing functions (269 total tests passing)
+- [x] Filter Warning: Remove auto-clear logic from useDashboard (don't touch agent sheets)
+- [x] Filter Warning: Keep detectFilters tRPC query to check which agents have active filters
+- [x] Filter Warning: Add filter warning state to useDashboard return value
+- [x] Filter Warning: Show ⚠ warning badge on agents with active filters in agent table
+- [x] Filter Warning: Show ⚠ warning badge on agent quick view cards
+- [x] Filter Warning: Show filter warning count in header bar ("X filtered" amber badge)
+- [x] Filter Warning: Tooltip on warning badge showing which tabs have filters
+- [x] Filter Warning: All 269 tests passing
+- [x] Fix: React error #310 ("Rendered more hooks than during the previous render") — moved filterWarningsByUrl useMemo before early return to keep hooks order stable
+- [x] Fix: Filter warning detection not working — fixed tRPC batch query format (batch=1 param, {"0":{json:...}} input wrapping, array response parsing with superjson layer)
+- [x] Fix: Filter warning not appearing — removed auth requirement from detectFilters endpoint, added detection on cached data load, extracted shared runFilterDetection helper
+- [x] Date Format Warning: Detect agents with text-format dates (rows with data but empty date in gviz CSV) and show alert banner
+- [x] SKU Performance: Add call attempt breakdown columns (اتصل 1-6, انتظار, تأجيل, مغلق, لا يجيب) with toggle
+- [x] SKU Performance: Sortable call status columns (click any column header to sort)
+- [x] SKU Performance: Totals row at bottom with pipeline count
+- [x] SKU Performance: Per-agent call breakdown in expandable rows
+- [x] SKU Performance: Pipeline % indicator per SKU (orders still in call stages)
+- [x] Fix: classifyCallStatus crash on undefined rawStatus (null guard added)
+- [x] SKU Call Breakdown: 7 vitest tests for call classification and aggregation (276 total tests passing)
+- [x] SKU Performance: Make table header row sticky (fixed on scroll)
+- [x] SKU Performance: Treat اتصل 6 as cancelled (only on SKU page, not main dashboard)
+- [x] SKU Performance: Exclude اتصل 6 from pipeline count (lead is exhausted after 6 attempts)
+- [x] SKU Performance: Recalculate conf/cancel rates on SKU page with call6 counted as cancelled
+- [x] Bug Fix: Count rows with empty status as valid leads (currently skipped, causing order count mismatch with Google Sheets)
+- [x] Bug Fix: Classify empty-status rows as "no status" / pending in the agent breakdown
+- [x] Bug Fix: Include empty-status leads in total order count for accurate agent stats
+- [x] SKU Decision Matrix: Import cost data from CSV files (scalex_sku_totals.csv, scalex_all_entries.csv)
+- [x] SKU Decision Matrix: Cross-reference cost-per-lead with confirmation rate per SKU
+- [x] SKU Decision Matrix: Calculate cost-per-confirmed-order (CPL / confirmation rate)
+- [x] SKU Decision Matrix: Score SKUs and classify as KILL / WATCH / KEEP
+- [x] SKU Decision Matrix: New page with sortable table, color-coded recommendations
+- [x] SKU Decision Matrix: Focus on Testicalm products with <50% confirmation rate
+- [x] SKU Decision Matrix: Show buyer breakdown and market breakdown per SKU
+- [x] SKU Decision Matrix: KPI summary cards (total spend, avg CPL, kill count, potential savings)
+- [x] SKU Decision Matrix: Vitest tests for scoring logic (325 total tests passing)
+- [x] Bug Fix: Kill/Keep page "Failed to fetch" - CORS issue with CDN CSV files, serve through backend tRPC endpoint instead
+- [x] Bug Fix: Spend and CPL columns were correct; real issue was $/Conf formula (fixed above)
+- [x] Fix: $/Conf calculation — use CPL / confirmation rate instead of totalSpend / confirmed (leads split across internal + external teams)
+- [x] Fix: Conf rate in Kill/Keep should exclude 0-status (untried) leads from denominator — only count leads with at least 1 status
+- [x] Bug Fix: Kill/Keep table column alignment — data values shifted left, don't match headers
+- [x] Profit-based Kill/Keep: Replace generic scoring with real unit economics for Testicalm DZ
+- [x] Profit-based Kill/Keep: Formula = CPL / conf% / 0.55 delivery rate → convert to DA (×250) → subtract from 2700 DA margin
+- [x] Profit-based Kill/Keep: KILL (<300 DA profit), WATCH (300-700 DA), KEEP (>700 DA)
+- [x] Profit-based Kill/Keep: Show profit per delivery, cost per delivery, and ad cost in DA columns
+- [x] Profit-based Kill/Keep: Update tests for new scoring logic (333 total tests passing)
+- [x] Kill/Keep: Restrict tab visibility to super admin users only
+- [x] Kill/Keep: Add role column to dashboard_users table (user / super_admin)
+- [x] Kill/Keep: Update auth system to return role in session/JWT
+- [x] Kill/Keep: Backend protection — reject non-super-admin from costData endpoints
+- [x] Kill/Keep: Frontend — hide Kill/Keep nav tab for non-super-admin users
+- [x] Kill/Keep: Download KILL list CSV export button for media buyers (already existed)
+- [x] Kill/Keep: Vitest tests for role-based access control (342 total tests passing)
+- [x] Bug: Logout button not working in TopNav (resolved after server restart)
+- [x] Bug: admin/scalex2024 login — password is actually scalex2026 (not 2024), user was given wrong password
+- [x] Bug: admin account already has super_admin role confirmed in database
+- [x] Create hadjer account with user role (no Kill/Keep access)
+- [x] Change admin password from scalex2026 to willmy05
+- [x] Bug: Algeria dashboard stuck loading — fixed by passing agent names from DB to skip heavy fetchAgentName HTML page fetches
+- [x] Bug: Agent showing "Agent 1771862976177" instead of real name — fixed: fallback to fetchAgentName when DB name is generic/placeholder
+- [x] Add Cost Calculator external link in nav (super admin only) → scalexcost-5m4dyycz.manus.space
+- [x] API Bridge: Add read-only API endpoint to calculator app (scalexcost)
+- [x] API Bridge: Update Kill/Keep matrix to auto-fetch cost data from calculator API
+- [x] API Bridge: Market-level matching replaces per-SKU mapping
+- [ ] Add Cost Calculator external link in nav (super admin only)
+- [x] Cost Calculator external nav link (super_admin only, opens in new tab)
+- [x] Connect Kill/Keep Matrix to Cost Calculator API (replace manual CSV upload)
+- [x] Server-side tRPC endpoint to proxy cost data from Calculator API
+- [x] Market-level matching replaces per-SKU name mapping
+- [x] Update Kill/Keep UI to fetch from API with loading states
+- [x] Tests for cost data API integration (354 total tests passing)
+- [x] Delete old CSV-uploaded cost data from database (no DB data existed — was client-side only)
+- [x] Remove CSV upload code paths (now using live API)
+- [x] Clean up unused CSV parsing functions (parseSKUTotals, parseAllEntries, buildMarketMap, CostDetailEntry removed)
+- [x] Kill/Keep: Detect turned-off campaigns from Calculator API isActive field
+- [x] Kill/Keep: Add OFF badge with PowerOff icon to turned-off campaigns
+- [x] Kill/Keep: Add Active/OFF/All status filter toggle
+- [x] Kill/Keep: Show "Already OFF" and "Still Active" KPI cards
+- [x] Kill/Keep: Integrate isActive field from Calculator API into types and aggregation
+- [x] Kill/Keep: Tests for isActive integration (352 total tests passing)
+- [x] SKU Mapping: Replaced with market-level matching (no per-SKU mapping needed)
+- [x] SKU Mapping: Not needed — market-level matching eliminates per-SKU mapping requirement
+- [x] SKU Mapping: Replaced by mapSheetToDashboardSlug function
+- [x] SKU Mapping: Not needed — market-level matching is automatic
+- [x] SKU Mapping: Integrated via buildDecisionMatrix with MarketConfData
+- [x] SKU Mapping: 59 tests for market-level matching (mapSheetToDashboardSlug, buildDecisionMatrix, etc.)
+- [x] BUG: Kill/Keep shows zero confirmation data matches — fix by using market-level conf rates instead of exact SKU matching
+- [x] NOTE: Old campaigns renamed in Calculator won't match by SKU name — market-level matching handles this
+- [x] Market-level matching: Map Calculator sheets to Dashboard slugs (Libya→libya, Testicalm DZ/Herbo Calm DZ/Menopause→algeria, Viconis→viconis, Tunisia→tunisia)
+- [x] Market-level matching: Use overall conf rate from each dashboard instead of per-SKU matching
+- [x] Market-level matching: Auto-load dashboard data when Kill/Keep page opens (don't require visiting dashboards first)
+- [x] Fix pre-existing classifyProduct test failures (4 tests)
+- [x] REVERT: Market-level matching was wrong — SKU names DO match between Calculator and Dashboard
+- [x] Fix per-SKU matching: Investigate actual SKU data format from both Calculator API and Google Sheets
+- [x] Fix per-SKU matching: Correct the matching logic in buildDecisionMatrix
+- [x] Fix per-SKU matching: Update DecisionMatrix page to pass per-SKU conf data
+- [x] Fix per-SKU matching: Update tests — 63 tests passing for per-SKU matching
+- [x] Kill/Keep: Add "Dash Leads" column showing how many leads from confirmation dashboard matched each SKU
+- [x] Kill/Keep: Show Calculator leads vs Dashboard leads side by side for data reliability judgment
+- [x] SKU Performance: Show Active/OFF campaign status badge per SKU by cross-referencing Calculator API isActive data
+- [x] SKU Performance: Fetch cost data on SKU Performance page load for status matching
+- [x] SKU Performance: Display green "Active" or gray "OFF" badge in Campaign column
+- [x] SKU Performance: Add Active/OFF/All filter toggle to filter campaigns by Calculator API status
+- [x] SKU Performance: Filter integrates with existing search and country filters
+- [x] Kill/Keep: Merge upsell SKU variants with base SKU (e.g., "...testicalmupsell" merges into "...Testicalm February2026")
+- [x] Kill/Keep: Combine leads, spend, and recalculate weighted CPL when merging upsell variants
+- [x] Kill/Keep: Write tests for upsell SKU merging logic
+- [x] Bug Fix: Duplicate SKU entries in Kill/Keep — same base SKU appears multiple times (e.g., 3 rows for "romaissa-TT-R.001-Testicalm january 2026")
+- [x] Bug Fix: SKU Performance shows duplicate rows for same SKU from confirmation data (e.g., 3 rows for "maissa-FB-3177-mk maissa testicalm 268 sh") — need to normalize + merge upsell in aggregateSKUData
+- [x] SKU Performance: Investigate and clarify how no-status leads are counted (total orders, confirmation rate denominator)
+- [x] SKU Performance: Add date range filter to filter orders by date period
+- [x] Dashboard: Add toggle to exclude orders with no SKU (organic/page leads) from agent stats
+- [x] Dashboard: No-SKU orders have no ad spend and drag down confirmation rates — should be excludable
+- [x] Dashboard: Toggle filters orders before aggregation so KPIs, charts, and agent table all update
+- [x] Dashboard: Show organic lead count and conf rate in separate columns when toggle is ON
+- [x] Dashboard: filterDashboardExcludeOrganic function to recalculate stats without organic orders
+- [x] Bug Fix: Date parser too strict — 13 rows for ASSIL still show missing dates after user fixed formatting in Google Sheets
+- [x] Bug Fix: Investigate actual date formats in agent sheets and make parser more robust
+- [x] Bug Fix: Added normalizeDateString() to handle =DATE() formulas, ISO dates, dash/dot separators, and serial numbers
+- [x] Fix: Remove silent date inheritance for empty dates — always warn on genuinely missing dates so team can fix in sheet
+- [x] Fix: Update warning banner text to accurately describe behavior (orders still counted as 'Unknown' date)
+- [x] Two-pass date recovery: Server-side tRPC endpoint to read raw column A values via Sheets API v4 for specific rows
+- [x] Two-pass date recovery: Client calls recovery endpoint when gviz returns empty dates, fills in missing dates from raw values
+- [x] Two-pass date recovery: Only triggers extra API call when there are actually empty dates (no overhead for clean sheets)
+- [x] Fix: Date recovery API calls making dashboard loading too slow (extra API call per tab with missing dates)
+- [x] Fix: Make date recovery non-blocking — load dashboard fast with gviz data, recover dates in background
+- [x] Fix: Update UI to show data immediately, then silently update when dates are recovered
+- [x] UI: Add small "recovering dates..." indicator in dashboard header during background date recovery
+- [x] UI: Add direct Google Sheet link button after Status column in agent table
+- [x] Perf: Batch date recovery API calls — combine multiple tabs/agents into fewer requests
+- [x] Feature: Integrate Sellmax (Tunisia) lead converter into Assign section
+- [x] Feature: Integrate Ecomanager (Algeria) lead converter into Assign section
+- [x] Feature: Paste leads → preview with duplicate detection → download Excel
+- [x] Feature: Wire lead converter into Assign page navigation
+- [x] Export Leads: New /export page with Sellmax (Tunisia) and Ecomanager (Algeria) converters
+- [x] Export Leads: Step-based flow — Select Converter → Paste Leads → Preview & Download
+- [x] Export Leads: Duplicate phone detection with remove duplicates option
+- [x] Export Leads: Sellmax format — 29-column Excel, 8-digit phone (remove 216), SOUKTN shop
+- [x] Export Leads: Ecomanager format — 14-column Excel, 10-digit phone (remove +213), auto-detect upsell
+- [x] Export Leads: Orange nav tab in top navigation bar
+- [x] Export Leads: Vitest tests for lead parser and row conversion (19 tests)
+- [x] History: Log Sellmax exports (partner, lead count, timestamp) to history
+- [x] History: Log Ecomanager exports (partner, lead count, timestamp) to history
+- [x] History: Display export events in History page alongside assignment events
+- [x] History: eventType column added to assignment_history schema (assignment vs export)
+- [x] History: metadata column added for export details (partner, duplicatesRemoved, upsellCount, sampleLeads)
+- [x] History: logExport DB helper and tRPC mutation endpoint
+- [x] History: ExportLeads page calls logExport on each download
+- [x] History: History page shows event type badges (Assignment=violet, Export=orange)
+- [x] History: Event type filter (All Types / Assignments / Exports)
+- [x] History: Export detail panel with summary cards and sample leads table
+- [x] History: Vitest tests for export history endpoint (4 tests, 437 total passing)
+- [x] Daily Summary: Backend query to aggregate today's assignments by market (country)
+- [x] Daily Summary: Backend query to aggregate today's exports by partner (Sellmax, Ecomanager)
+- [x] Daily Summary: tRPC endpoint returning daily stats (assignments per market + exports per partner)
+- [x] Daily Summary: Summary header on History page showing today's operations at a glance
+- [x] Daily Summary: Show lead counts per market and per export partner
+- [x] Daily Summary: Vitest tests for daily stats endpoint (5 tests, 442 total passing)
+- [x] Agent Activity: Backend - Google Drive Activity API integration to fetch edit history from connected sheets
+- [x] Agent Activity: Backend - Auto-map people IDs to emails via Revisions API cross-reference
+- [x] Agent Activity: Backend - Store people ID → email mapping in database
+- [x] Agent Activity: Backend - tRPC endpoints for activity data (daily, weekly, real-time status)
+- [x] Agent Activity: Frontend - New "Agent Activity" tab in navigation
+- [x] Agent Activity: Frontend - Real-time "Who's Active Now" panel with green/idle/offline status
+- [x] Agent Activity: Frontend - Daily activity report per agent (shift start/end, active hours, breaks, edits/hour)
+- [x] Agent Activity: Frontend - Weekly summary view with day-by-day breakdown
+- [x] Agent Activity: Frontend - Hourly activity heatmap/chart
+- [x] Agent Activity: No fixed shift time (Ramadan schedule) — show raw data only, no late alerts
+- [x] Agent Activity: Tests - Vitest tests for activity endpoints (15 tests, 457 total passing)
+- [x] Agent Email Mapping: Add agentEmail column to agent_sheets table to store the designated agent's Google email per sheet
+- [x] Agent Email Mapping: Store Algeria agent email mappings (11 agents confirmed by Boss)
+- [x] Agent Email Mapping: Update Activity Tracker backend to filter activities by designated agent email only (ignore managers/other editors)
+- [x] Agent Email Mapping: Update Activity Tracker frontend to show agent name (from sheet) instead of raw email
+- [x] Agent Email Mapping: Add UI in Manage panel to edit agent email per sheet
+- [x] Agent Email Mapping: Write vitest tests for filtered activity logic (11 tests, all 468 passing)
+- [ ] Bug: Preview not showing in Management UI
+- [ ] Bug: Login does nothing when credentials are entered
+- [x] Bug: Activity Tracker timezone fix — shiftStart/shiftEnd/breaks now return raw UTC, browser converts to local time (was double-converting: backend +1h then browser +1h = 2h ahead)
+- [x] Bug: Agent Quick View cards now show instant status from Drive Activity API (Active now / Idle Xm / Last seen Xh ago / Offline)
+- [x] Rework: Replace refresh-comparison activity detection with Drive Activity API data for instant agent status
+- [x] Rework: Create backend tRPC procedure to return last edit time per agent from Drive Activity API
+- [x] Rework: Rewrite useAgentActivity hook to consume API data instead of snapshot comparisons
+- [x] Feature: Add link/button on Agent Quick View cards to open the agent's Google Sheet directly
+- [x] Bug: Menus/tabs working slowly, some need double refresh to load (e.g., History tab)
+- [x] Perf: Increase global QueryClient staleTime to 2min and gcTime to 15min
+- [x] Perf: Add placeholderData to all major queries (agents, untreated counts, activity status, daily stats, history)
+- [x] Perf: Add route prefetching on hover for lazy-loaded pages (SKU, Assign, Export, History, Activity, Matrix)
+- [x] Perf: Add staleTime to sheets list query (5min) to prevent refetch on dashboard switch
+- [x] Perf: Add staleTime to history detail query (5min) and daily stats (1min)
+- [x] Perf: Disable refetchOnReconnect globally to prevent unnecessary network-triggered refetches
+- [x] Bug Fix: Date recovery runs on every refresh even when dates were already recovered — cache recovered dates to avoid redundant API calls
+- [x] Bug Fix: Date recovery still triggers on manual refresh click — cache now persisted to sessionStorage
+- [x] Bug Fix: History page "Today's Operations" shows empty despite having transactions today — timezone mismatch (fixed: pass client timezoneOffset to dailyStats query)
+- [x] Feature: Add "Worked Rate" metric (Confirmed / Leads Actually Attempted) alongside existing Total Rate
+- [x] Feature: Detect untouched/new leads (0 tentatives) and exclude from Worked Rate calculation
+- [x] Feature: Show both Total Rate and Worked Rate in KPI cards, agent table, and agent detail views
+- [x] Fix Campaign Status column on SKU Performance page — showing loading spinners, not fetching data (was auth issue: requires super_admin login)
+- [x] Activity page: Add work/break timeline showing when agent worked and when they took breaks with durations
+- [x] Fix Activity page: duplicate agents (e.g., Yacine appears 3 times) — merge edits across sheets per agent email
+- [x] Fix Activity page: slow loading / requires multiple refreshes
+- [x] Activity page: Add country/market tabs (Libya, Algeria, Viconis) to separate agents by market
+- [x] Fix Activity page: country tab requires two clicks to switch
+- [x] Fix Activity page: Yacine (yassinfrai8) showing in Viconis — filter activity results to only show agents assigned to that country's sheets (managers like Kada Hadjer are OK)
+- [x] Fix Activity page: people IDs are NOT globally unique — same people ID can map to different users on different sheets. Rewrote to per-sheet people ID → email mapping. Activities now resolved per-sheet then aggregated by email (globally unique). All 518 tests passing.
+- [x] Bug: Libya dashboard shows setup/paste screen for ~30 seconds before loading saved agents — now shows loading skeleton with spinner and progress text instead of confusing setup screen
+- [x] Cache sheet URLs in localStorage so dashboard starts fetching immediately (no DB wait)
+- [x] Revert loading screen UI back to original (remove the skeleton loading screen)
+- [x] Fix localStorage sheet cache: when DB returns empty (auth switch), don't overwrite localStorage cache — keep using cached URLs so data still loads
+- [ ] Ultimate date fix: investigate and fix the entire date pipeline — how dates are written during Assign Leads, how Google Sheets stores them, and how the dashboard reads/parses them back
+- [ ] Fix missing leads: Nesrine shows 1231 instead of 1240 — some rows being skipped during CSV parsing. Investigate row-skipping logic in parseOrders.
+- [x] Colivraison Export: Add Colivraison tab to Export page
+- [x] Colivraison Export: Product selector with saved products (Testicalm pre-loaded)
+- [x] Colivraison Export: Product config — name "مرهم دوالي الخصيتين testicalm", price 3800→qty 1, 5800→qty 2
+- [x] Colivraison Export: Paste leads → parse name, phone, address, price, reference
+- [x] Colivraison Export: Phone cleanup — remove +213 prefix (like EcoManager)
+- [x] Colivraison Export: Name cleanup — phone-only names → "client", remove numbers from names (e.g. "mohamed055920" → "mohamed")
+- [x] Colivraison Export: Duplicate removal by phone number (like EcoManager)
+- [x] Colivraison Export: Map to Colivraison template (17 columns, Commune=".", Wilaya=".")
+- [x] Colivraison Export: Download XLSX with filename "Colivraison_YYYY-MM-DD_HH-MM.xlsx"
+- [x] Colivraison Export: Log export to history
+- [x] Colivraison Export: Vitest tests for Colivraison lead parsing and conversion
+- [x] Fix Colivraison: Reference not detected — parser puts "-" or name in Ref column instead of actual reference
+- [x] Fix Colivraison: Phone-number name "675055198" shows as "-" instead of "client"
+- [x] Fix Colivraison: Names leaking into Ref column (e.g. "HAMZAOUI AZZEDINE", "Mohamed" in Ref)
+- [x] Add real logos for Colivraison, EcoManager, and Sellmax on Export page partner cards
+- [x] Fix Colivraison: Use same EcoManager tab-separated parser (same lead format) but extract column N as reference
+- [x] Fix Colivraison tab-separated parser: Pre-merge multi-line rows (upsell cells with newlines split into separate lines)
+- [x] Fix Colivraison tab-separated parser: Flatten all tab-columns across sub-lines into one array for correct column indexing
+- [x] Fix Colivraison tab-separated parser: Scan forward from price column for reference (not backwards which grabbed names)
+- [x] Fix Colivraison tab-separated parser: Skip testicalmupsell artifacts and upsell text in reference scan
+- [x] Fix Colivraison tab-separated parser: Correctly detect upsell price (5800) from merged continuation lines
+- [x] Fix Colivraison tab-separated parser: 5 new vitest tests (540 total passing)
+- [x] Bug: Some Colivraison references have leading double-quote character (") — upsell leads only. Fixed: strip surrounding quotes from Google Sheets clipboard quoting of multi-line cells
+- [x] 48H Delivery Tracking: Database schema for delivery orders (tracking, client, phone, wilaya, status, amount, remarque, date, agent_code)
+- [x] 48H Delivery Tracking: Excel upload endpoint — parse EcoTrack export XLSX
+- [x] 48H Delivery Tracking: Agent code extraction from client names and matching to agent_sheets
+- [x] 48H Delivery Tracking: Upsert logic — re-upload updates existing orders, adds new ones
+- [x] 48H Delivery Tracking: Delivery page in dashboard with upload button
+- [x] 48H Delivery Tracking: Agent performance table — delivery rate, return rate, status breakdown per agent
+- [x] 48H Delivery Tracking: Overall KPI cards — total orders, delivered, returned, in transit, delivery rate
+- [x] 48H Delivery Tracking: Status breakdown chart
+- [x] 48H Delivery Tracking: Date range filter for delivery stats
+- [x] 48H Delivery Tracking: Vitest tests for Excel parser and delivery calculations (39 tests, 579 total passing)
+- [x] Bug: Login shows "Connection error. Please try again." — resolved (timing/proxy delay)
+- [x] Delivery: Add working date filter to filter delivery stats by date range
+- [x] Delivery: Remove "Completed Delivery Rate (excl. in-transit)" section
+- [x] Delivery: Investigate unknown agent orders — check if they are MEDIAZ without agent codes
+- [x] Delivery: MEDIAZ orders (remarque has mediaz) → group as single agent "MEDIAZ" instead of "unknown"
+- [x] Delivery: TEL02 = Khoukha phone orders (clients calling her directly, not confirmation)
+- [x] Delivery: SM1 = Soumia (community manager, page orders)
+- [x] Delivery: GH1 = Ryma (community manager, page orders)
+- [x] Delivery: Fix parser to detect agent codes at beginning/middle of name, not just end
+- [x] Delivery: Add L03b, SV02, YR06 code patterns to parser
+- [x] Delivery: Re-process existing orders with improved parser
+- [x] Main Dashboard: Add delivery rate column to Algeria agent table (matched by agent code)
+- [x] Main Dashboard: Tie delivery rate to the same date filter as confirmation data
+- [x] Main Dashboard: Only show delivery rate for Algeria agents (EcoTrack = Algeria only)
+- [x] Main Dashboard: Delivery rate columns sortable (Del. Rate, Del/Total) with truck icon header
+- [x] Main Dashboard: Delivery rate vitest tests — 23 tests for code matching and stats aggregation (616 total passing)
+- [x] Move Del. Rate column to be right after Worked % column in agent table
+- [x] Remove Del/Total column (keep only Del. Rate %)
+- [x] Remove normal Conf. Rate column from agent table (keep only Worked rate)
+- [x] Rename "Worked %" to "Worked Conf. Rate" in agent table header
+- [x] Add Perf. column to agent table (Worked Conf. Rate × Delivery Rate), Algeria only
+- [x] Add global Team Performance KPI card showing overall team performance rate
+- [x] Fix React error #310 on published site (production build crash — useMemo after early return)
+- [x] Fix: delivery.agentRates threw error on auth failure instead of returning empty object — changed to return {} like other endpoints
+- [x] Fix delivery rate columns not showing on published site
+- [x] Ensure delivery data loads regardless of auth state
+- [x] Match delivery data with agent names from confirmation data
+- [x] Date filter applies to both confirmation and delivery data simultaneously
+- [x] Fix delivery rate columns disappearing after page refresh on published site (splitLink: unbatch fast DB queries from slow Google Sheets API calls)
+- [x] Fix delivery date filter not applied — agents show delivery stats outside filtered date range (e.g. Warda W09 shows 75% for 1-20 Feb but her orders start 23 Feb) — root cause: fuzzy agent code matching (w01 incorrectly matched to W09)
+- [x] Fix delivery rate showing 100% for agents with 0 orders in filtered date range — fixed by tightening agent code matching (no more false positives from w01→W09)
+- [x] History page: clickable country cards (e.g. Libya 464) to see all leads data for manual rechecking
+- [x] History page: per-agent breakdown for the day (how many leads each agent got) shown on "See Detail" click
+- [x] History page: detail view should be expandable/collapsible, not shown by default
+- [x] History page: date navigation arrows to browse previous days' operation summaries (not just today)
+- [x] History page: daily summary (country cards, exports, total leads, operations count) for any selected date
+- [x] History page: "Today" button to jump back to current date from any past date
+- [x] History page: header changes from "Today's Operations" to "Daily Operations" when viewing past dates
+- [x] History page: next day arrow disabled when already on today's date
+- [x] Assign Leads: Add blocking error modal (not just toast) when any leads fail assignment — forces acknowledgment
+- [x] Assign Leads: Error modal shows failed agent names, lead count, and error reason
+- [x] Assign Leads: Error modal has "I Understand" button that must be clicked before proceeding
+- [x] Assign Leads: Modal cannot be dismissed by clicking outside or pressing Escape — must click button
+- [x] Assign Leads: Detect active filters on agent Google Sheets before assignment
+- [x] Assign Leads: Show warning badge/indicator per agent if their sheet has active filters (pulsing FILTER ACTIVE badge)
+- [x] Assign Leads: Show global warning banner on assign step listing all agents with filters
+- [x] Assign Leads: Show RED warning on confirm step when selected agents have active filters
+- [x] Assign Leads: Filter badge shown next to agent name in confirm table
+- [x] Date Logic: Auto-format column A as Date (dd/MM/yyyy) in every appendRows batchUpdate call
+- [x] Date Logic: Backend fixDates mutation to format column A on all tabs of given agent sheets
+- [x] Date Logic: Frontend auto-triggers fixDates when broken dates detected on dashboard load
+- [x] Date Logic: Banner shows 3 states: fixing (blue), still missing after fix (amber), initial error (red)
+- [x] Date Logic: After auto-fix, dashboard re-reads data to verify — truly missing dates still show warning
+- [x] Date Logic: Header badge updates to reflect fix status (fixing spinner vs remaining issues)
+- [x] Date Logic: Always use today's date (assignment date) for column A instead of the date from lead data
+- [x] Date Logic: Apply to all markets (Algeria, Libya, Tunisia, Viconis) — same as TikTok leads logic
+- [x] Remove old recoverDates and recoverDatesBatch backend endpoints
+- [x] Remove getRawDateValues function from googleSheets.ts
+- [x] Remove recoverDatesInBackground from frontend sheets lib
+- [x] Remove "Recovering dates..." spinner from dashboard header
+- [x] Remove auto-fix-on-load logic from Home.tsx
+- [x] Add "Fix All Dates" button in Manage panel (grouped by spreadsheet to minimize API calls)
+- [x] Simplify date warning header badge (simple amber warning, no auto-fix states)
+- [x] Remove dateRecoveryCache and related dead code from frontend
+- [x] Remove parseDateFormula and serialToDate helpers from googleSheets.ts
+- [x] Remove dateRecovery.test.ts and dateRecoveryCache.test.ts (dead tests)
+- [x] Optimize fixDates endpoint to group by spreadsheet ID (deduplicate API calls)
+- [x] Diagnostic: tRPC endpoint to scan agent sheets and return exact rows with empty/invalid dates
+- [x] Diagnostic: "Show Exact Rows" button in date warning banner — shows row number, tab, col A value, status, product, customer, phone
+- [x] Fix: Reduced delay between spreadsheets from 1000ms to 300ms for faster processing
+- [x] Fix: Better error handling — shows detailed error messages, error state on button, retry support
+- [x] Fix: Progress logging for fixDates endpoint
+- [ ] Fix: Fix All Dates button should also fill empty column A cells with today's date (pending user decision)
+- [x] Date check: Only scan weekly tabs (الأسبوع 1-4) for missing dates, ignore all other tabs
+- [x] Backend fixDates: Only format column A on weekly tabs (الأسبوع 1-4)
+- [x] Backend diagnoseDates: Only scan weekly tabs (الأسبوع 1-4)
+- [x] Frontend parseOrders: Already only loads weekly tabs (was correct from the start)
+- [x] Fix: GViz CSV drops Date-type cells (returns empty string) causing false-positive date warnings — SUPERSEDED by Apps Script integration
+- [x] Fix: Use Google Sheets API to read column A dates as fallback when GViz reports missing dates — SUPERSEDED by Apps Script integration
+- [x] Fix: Permanent date fix — SOLVED: Standalone Apps Script with getDisplayValues() reads all dates correctly regardless of cell format
+- [x] Apps Script Integration: Replace GViz CSV endpoint with standalone Apps Script for reading sheet data
+- [x] Apps Script Integration: Update fetchSheetByName() to call Apps Script endpoint instead of GViz
+- [x] Apps Script Integration: Fetch all 4 weekly tabs in 1 call per agent (reduce API calls)
+- [x] Apps Script Integration: Update parseOrders() to handle Apps Script response format
+- [x] Apps Script Integration: Remove date warning false positives (all dates now read correctly)
+- [x] Apps Script Integration: Write vitest tests for Apps Script data fetching
+- [x] Apps Script Integration: End-to-end test with real agent sheets
+- [x] Missing Dates Detail: Eliminate separate Google Sheets API scanning call — use row index from Apps Script data instead
+- [x] Missing Dates Detail: Show details instantly without "Scanning sheets..." loading state
+- [x] Activity Optimization: Add server-side cache for agentStatus (per-country, 60s TTL)
+- [x] Activity Optimization: Increase batch size and reduce delays between batches
+- [x] Activity Optimization: Skip sheets without agentEmail configured (no point querying)
+- [x] Activity Optimization: Add per-sheet error tracking with exponential backoff for failing sheets
+- [x] Activity Optimization: Improve frontend polling — stagger initial load, smarter refetch intervals
+- [x] Activity Optimization: Add graceful degradation — show 'Unknown' for API errors vs 'Offline'
+- [x] Activity Optimization: Write vitest tests for caching and optimization logic
+- [x] Remove Fix Dates feature — no longer needed since Apps Script reads dates correctly
+- [x] Remove Fix Dates button from Manage panel and date warning banner
+- [x] Remove server-side fixDates procedure and Google Sheets API calls for date formatting
+- [ ] Fix activity status stuck on "Loading..." — diagnose and resolve
+- [x] Remove getRawDateValues API calls — no longer needed (Apps Script handles dates)
+- [x] Move filter detection to Apps Script — zero Google Sheets API quota, still needed for lead assignment safety
+- [x] Create new detectFilters tRPC procedure using Apps Script endpoint
+- [x] Update frontend to use new Apps Script-based filter detection
+- [ ] Optimize getUntreatedLeadCount — add longer cache or move to Apps Script
+- [ ] Optimize getSheetNames — add longer cache or move to Apps Script
+- [ ] Verify total Google API call reduction fixes activity "No data" issue
+- [x] Fix: Ramy's active filter not showing in dashboard despite Apps Script detecting it correctly (was just delayed, now runs in parallel)
+- [x] Fix: Filter detection takes ~1 minute in Algeria — optimize to run faster (parallel + batch by spreadsheet)
+- [x] Optimize: Dashboard sheet data loading — fetch all agents in parallel instead of sequential
+- [x] Order Collection feature: Apps Script collectOrders function (find تأكيد + empty Column D)
+- [x] Order Collection feature: Apps Script markOrders function (write نعم with row verification)
+- [x] Order Collection feature: Server tRPC procedures for collect and mark
+- [x] Order Collection feature: Frontend page with review table (grouped by agent)
+- [x] Order Collection feature: Mark as Collected flow with safety verification
+- [ ] Order Collection feature: Manual test on Ramy's sheet
+- [ ] Order Collection feature: Store collection history/log in database
+- [x] Fix: collectOrders should return full row data (all columns A to N+) not just specific columns
+- [x] Fix: Remove assignment history entry (hadjer, Viconis, الأسبوع 4, 82 leads) — deleted id=840015
+- [x] Fix Order Collection copy output: upsell text in product names breaks row alignment when pasted into spreadsheet
+- [x] Fix Order Collection copy: phone numbers lose leading zero when pasted into spreadsheet
+- [x] Fix Order Collection copy: output raw cells exactly as in Google Sheet, only add Agent Name as last column
+- [x] Collection History: Database schema (collection_batches + collection_orders tables)
+- [x] Collection History: DB helpers for storing and querying collection batches
+- [x] Collection History: tRPC procedures (save batch, list batches, get batch detail)
+- [x] Collection History: Wire Mark as Collected to save batch to database
+- [x] Collection History: History UI page with batch list and expandable details
+- [x] Collection History: Vitest tests for collection history logic
+- [x] Pages Orders: Add "Pages Orders" as a new lead source type in Assign Leads
+- [x] Pages Orders: Parse pages order format (product, customer w/ page code, phone, optional address, optional date)
+- [x] Pages Orders: Support Algeria, Libya, Viconis country formats
+- [x] Pages Orders: Integrate into existing multi-paste assignment flow
+- [x] Pages Orders: Write vitest tests for pages order parsing (21 tests)
+- [x] Pages Orders: Parse 6-column format (PageCode, Product, CustomerName, Phone, Address, Date)
+- [x] Pages Orders: SKU/المرجع = PageCode + "PAGE" (e.g. SM1PAGE, GH1PAGE)
+- [x] Pages Orders: Price left empty
+- [x] Pages Orders: Strip page code prefix from customer name for display (keep raw in data)
+- [x] Pages Orders: Phone is 9 digits without country code — add 0 prefix for Algeria, leave as-is for Libya
+- [x] Pages Orders: Address column optional (often empty)
+- [x] Pages Orders: orderType = "PAGE" for tracking
+- [x] Pages Orders: Add "pages" as 4th batch tab in multi-batch paste (Algeria, Viconis, Libya)
+- [x] Pages Orders: Enable multi-batch mode for Libya (currently only Algeria/Viconis)
+- [x] Fix: Pages Orders parser — moved detection BEFORE Libya/Viconis so market hint doesn't skip page order detection
+- [x] Fix: Ensure Pages Orders detection does NOT interfere with normal Shopify/Libya/Viconis/TikTok format detection
+- [x] Fix: Algeria Pages Orders has different format than Libya — added continuous string fallback parser
+- [x] Fix: Pages Orders parser must NOT modify any data — phone as-is (skip formatPhone for PAGE orders), name/product as-is. Only add SKU = PageCode + PAGE.
+- [x] Fix: Admin login failing — username "admin" with correct password "willmy05" shows "Invalid username or password"
+- [x] Delete mistaken export history record: Hadjer, Algeria, colivraison, 359 leads, 01 Mar 2026
+- [x] Create user accounts: Farah, Syia, H Oussama — access to collect orders and view history only
+- [x] Add 'collector' role to dashboard_users schema enum
+- [x] Restrict frontend nav: collector role only sees Orders + History tabs
+- [x] Restrict backend: collector role blocked from assign/export/dashboard/activity/delivery routes (redirect to /orders)
+- [x] Insert 3 accounts: farah, syia, houssama with collector role
+- [x] Add visual toast feedback when clicking "Copy to Clipboard" on Order Collection page
+- [x] Fix: Rename username 'syia' to 'sylia' and update password to 'sylia2026'
+- [x] Show all agents in Order Collection even if they have 0 orders
+- [x] Add quick-access button to open agent's Google Sheet from Order Collection
+- [x] Delivery upload: Change from upsert to delete-all + batch-insert (replace mode) for faster uploads
+- [x] Bug Fix: EcoManager Delivery page file upload stuck on "Processing file..." — delete+replace instead of slow row-by-row upsert
+- [x] Colivraison Delivery: Server-side parser for Colivraison Excel exports (14-column format)
+- [x] Colivraison Delivery: Status mapping (Livré/Retour/En Livraison/etc → normalized statuses)
+- [x] Colivraison Delivery: Upload procedure supports partner selection (48h vs colivraison) with delete+replace per partner
+- [x] Colivraison Delivery: Frontend partner tabs/filter on Delivery page
+- [x] Colivraison Delivery: Vitest tests for parser and status mapping
+- [x] Fix: Colivraison delivery tracking should group by confirmation agent code (same as EcoTrack), not media buyer
+- [x] Delivery: Add "All Partners" merged view combining agent stats across 48H and Colivraison
+- [x] Sellmax: Parse product name from column 6 (testicalm vs Prostacalm) instead of hardcoding
+- [x] Sellmax: Set SKU to 'Prostcalm' for Prostacalm orders, keep 'TestiIcalm' for Testicalm orders
+- [x] Sellmax: Store detected product in ParsedLead so toSellmaxRows can use it
+- [x] Sellmax: Show product breakdown (Testicalm vs Prostacalm count) in export preview
+- [x] Sellmax: Vitest tests for Prostacalm detection and SKU mapping
+- [x] Remove 2 Sellmax export history entries made by Hadjer today
+- [x] Fix: All Partners merged view should use order.partner instead of filter variable for unknown agent fallback
+- [x] Delivery: Add per-partner breakdown (EcoTrack vs Colivraison) in each agent's stats in All Partners view
+- [x] Delivery: Show partner breakdown in expanded AgentRow (orders, delivered, returned, rate per partner)
+- [x] Delivery: Write tests for per-partner agent breakdown logic
+- [x] History: Add validation status column to assignment_history (pending/validated/rejected)
+- [x] History: Backend procedures to validate or reject export entries
+- [x] History: UI validation buttons and status badges on History page
+- [x] History: Exports log as 'pending' instead of 'success' by default
+- [x] History: Write tests for validation workflow
+- [x] History: Add date picker filter to show only assignments/exports from selected date
+- [x] History: Today's Operations summary updates based on selected date
+- [x] History: Write tests for date filter query
+- [x] Work Date: Add workDate column to assignment_history table
+- [x] Work Date: Backend logExport and splitAssign accept workDate parameter
+- [x] Work Date: Assign Leads UI shows Work Date picker (defaults to today, auto-suggests tomorrow after 8 PM)
+- [x] Work Date: History Daily Summary groups by workDate instead of createdAt
+- [x] Work Date: History date filter filters by workDate
+- [x] Work Date: History table shows "For: DD Mon" label when workDate differs from assignment date
+- [x] Work Date: Write vitest tests for work date logic
+- [x] History: Admin-only delete endpoint (single + bulk) with DB helper
+- [x] History: Delete button per row (trash icon, visible only to Super Admin)
+- [x] History: Bulk select checkboxes + "Delete Selected" button for admin
+- [x] History: Confirmation dialog before deleting
+- [x] History: Write vitest tests for delete functionality
+- [x] Pages Inbox: Add page_manager role to dashboardUsers enum
+- [x] Pages Inbox: Create lead_inbox table in DB schema (phone, name, product, price, wilaya, address, country, submittedBy, status pending/assigned, createdAt)
+- [x] Pages Inbox: Backend DB helpers for submitting leads and fetching pending leads
+- [x] Pages Inbox: tRPC procedures for page managers to submit leads and for Hadjer to load them
+- [x] Pages Inbox: Build Submit Leads page for page managers (paste interface, country selector)
+- [x] Pages Inbox: Update Pages tab in Assign Leads with "From App" auto-load section + keep manual paste
+- [x] Pages Inbox: Mark leads as assigned after Hadjer uses them
+- [x] Pages Inbox: Add page_manager role routing in App.tsx (limited nav - only Submit Leads page)
+- [x] Pages Inbox: Badge showing pending lead count on Pages tab
+- [x] Pages Inbox: Write vitest tests (15/15 passed)
+- [ ] Fix: Date change assignment should be visible for Hadjer (admin role), not just super_admin
+- [ ] Fix: page_manager role not showing in Manage panel user creation form
+- [x] Fix: Viconis missing from Submit Leads country selector
+- [x] Fix: Submit Leads parser reads leads incorrectly (7 pasted, only 1 detected) — REDESIGNED: removed parser entirely, store raw text as-is
+- [x] Fix: Inbox leads should be stored as raw text lines and loaded as direct copy-paste into Hadjer's textarea
+- [x] Redesign: Replaced lead_inbox table (parsed fields) with lead_inbox_batches table (raw text blob)
+- [x] Redesign: SubmitLeads.tsx now stores raw pasted text without any parsing/transformation
+- [x] Redesign: AssignLeads "Load from Inbox" now loads raw text directly into textarea (same format as manual paste)
+- [x] Redesign: Updated all backend helpers (submitBatchToInbox, getPendingBatches, markBatchesAsAssigned, etc.)
+- [x] Redesign: Updated tRPC inbox router endpoints for batch-based approach
+- [x] Redesign: Rewrote 23 inbox vitest tests for batch-based raw text flow (all passing)
+- [x] Submit Leads Review Step: Add preview/review step between paste and submit
+- [x] Submit Leads Review Step: Show all pasted lines in a readable table so page managers can verify leads
+- [x] Submit Leads Review Step: Allow page managers to go back and edit if something looks wrong
+- [x] Submit Leads Review Step: Show line count and confirm before final submit
+- [x] Submit Leads Review Step: 33 vitest tests passing (including 10 new review step tests)
+- [ ] Submit Leads Review Step: Add delete button per row in review table to remove incorrect leads
+- [ ] Submit Leads Review Step: Update rawText after row deletion so submitted text matches reviewed table
+- [ ] Submit Leads Review Step: Update line count dynamically after deletions
+- [x] Bug Fix: History page date filter shows records from next day (e.g. selecting 02 Mar shows 03 Mar records)
+- [x] Bug Fix: Ensure "Filter Table" button correctly bounds records to selected date only
+- [x] Bug Fix: Table now shows workDate as primary date (not createdAt) when workDate exists
+- [x] Bug Fix: Backfilled workDate for all 211 legacy records that had NULL workDate
+- [x] Bug Fix: Simplified date filter to use workDate directly (no more complex timezone-based createdAt range)
+- [x] Bug Fix: Ensured logAssignment and logExport always set workDate (defaults to today if not provided)
+- [x] Bug Fix: All 38 date-related tests passing (historyDateFilter, workDate, dailyStats)
+- [x] Bug Fix: Records done after midnight Algeria time (UTC+1) show wrong date — re-backfilled 25 records with correct Algeria timezone dates
+- [x] Bug Fix: workDate backfill used UTC dates instead of Algeria local time — re-backfilled using UNIX_TIMESTAMP + UTC+1 offset
+- [x] Bug Fix: Added getAlgeriaDateStr() shared utility for consistent Algeria date calculations
+- [x] Bug Fix: logAssignment and logExport now default workDate to Algeria date (not UTC)
+- [x] Bug Fix: Time display in table is correct (browser converts UTC to local time automatically)
+- [x] Bug Fix: Daily Operations summary counts rejected exports in totals — now excludes validation_status='rejected' from export totals and operations count
+- [ ] Bug Fix: Auto-collection picks up cancelled/rejected leads from Google Sheets — should only collect confirmed leads
+- [x] Ecotrack DHD: Add as new delivery partner (Algeria, like Ecomanager but DHD not 48H)
+- [x] Ecotrack DHD: Build export logic with product bundling (TES+SAV: normal=1TES+1SAV, upsell=2TES+1SAV)
+- [x] Ecotrack DHD: Map wilaya codes from location string, commune dropdown per wilaya for selection
+- [x] Ecotrack DHD: Generate 18-column upload file matching Ecotrack template format
+- [x] Ecotrack DHD: Add to Export Leads UI as 4th delivery partner option
+- [x] Ecotrack DHD: Update history logging enum to include ecotrack_dhd
+- [x] Bug Fix: Ecotrack DHD parser — added sh08 phone anchor parser for Google Sheets concatenated paste format (detects all 6 leads)
+- [x] Bug Fix: Added Arabic wilaya name → code fallback lookup for edge cases (e.g., تيارت without numeric code)
+- [x] Fix: Ecotrack DHD parser — build parseEcotrackFixedColumns with simple column reads: H=Name, I=Phone, J=Address, L=Price, C=Qty (>1=upsell). Skip product column G entirely.
+- [x] Fix: Ecotrack DHD toEcotrackRows — detect upsell from qty field instead of price >= 5800
+- [x] Fix: Ecotrack DHD tests — update test data to use correct 13-column format matching real Google Sheets layout
+- [x] Add DHD Livraison logo to Ecotrack DHD section in Export Leads page
+- [x] Add original address data column next to commune selector in Ecotrack DHD commune selection step
+- [x] Add quantity column to Ecotrack DHD commune selection table
+- [x] Make all fields editable in Ecotrack DHD commune selection table (name, phone, address, price, qty)
+- [x] Fix Ecotrack DHD parser dropping 14 leads (161 pasted, only 147 detected) — 3 root causes: 'client' keyword filter blocking SM1 client names, 9-digit phones without leading 0, apostrophe prefix in phone
+- [x] Make Wilaya column editable in Ecotrack DHD commune selection table (dropdown to change wilaya, updates commune list)
+- [x] Fix invisible table header in Ecotrack DHD commune selection table
+- [x] Make address column wider in Ecotrack DHD commune selection table so full text is visible
+- [x] Make Ecotrack DHD commune table wider — price and qty columns truncated, need full-width scrollable table
+- [ ] Fix Order Collection picking up orders with "Failed" status from Google Sheet — should skip or handle orders that have delivery status already set
+- [x] Show failed order details (name, phone, reason) in Order Collection mark result screen instead of just a count
+- [ ] Fix History Today's Operations date filter — assignments created late night (e.g., 03 Mar 23:56 assigned for 04 Mar) should appear under 04 Mar operations
+- [x] Redesign date picker in Assign Leads confirmation step — make it more modern, smooth, and easier to read
+- [x] Fix Libya assignment wrong work date in database (Apr 2026 → Mar 2026, id: 1140003)
+- [x] Simplify date picker — replace calendar popover with 3 quick-select buttons: Today, Tomorrow, Day After Tomorrow
+- [x] Remove Day After button from date picker — keep only Today and Tomorrow
+- [ ] Check and fix Soumia login access (soumia / soumia123)
+- [ ] Check and fix Ryma login access
+- [x] Fix page manager Recent Submissions — show all submissions with submitter name label so each page manager sees the full picture
+- [x] Investigate and fix deployment/publishing blocker — removed 189 .manus/db cache files from git tracking, cleaned up 12 temp scripts, removed unused ComponentShowcase.tsx, added .manus/ to .gitignore
+- [x] Deep fix deployment blocker — replaced all manuscdn.com image URLs with proper CDN URLs (favicons, logos), removed old server/index.ts, removed 24 debug scripts from scripts/, cleaned git history
+- [x] Add submission/assignment date to Recent Submissions — show when Hadjer assigned the leads (assignedAt column + UI display)
+- [x] Backfill assignedAt for existing assigned batches (set to createdAt as approximation)
+- [x] Add Viconis logo to the dashboard — replaced 💎 emoji with actual logo image across all pages (App nav, History, AssignLeads, SubmitLeads, OrderCollection, SKUPerformance, DecisionMatrix, AgentActivity)
+- [x] Add delivery partner logos (DHD, Ecomanager, Colivraison, Sellmax) to History page export entries — PartnerLogo component with CDN images, badges in main list + expanded detail + daily summary
+- [x] Rename "Export" to "Upload" everywhere (nav, page title, badges, history labels)
+- [x] Split Upload Leads partner cards into "Leads" (Sellmax, Ecomanager, Colivraison) and "Confirmed Orders" (DHD)
+- [x] Separate DHD from lead partners in History daily summary
+- [x] Add post-upload reminder notification — after downloading Excel from Upload Leads page, show a persistent reminder to confirm the upload on the partner's platform (Colivraison, Sellmax, Ecomanager, DHD)
+- [x] Salary system: Create database schema for monthly salary records (fixed salary, delivered orders by country, video testimonials, absences, bonus, deductions)
+- [x] Salary system: Build server-side DB helpers and tRPC procedures for salary CRUD
+- [x] Salary system: Build admin page to fill in salary data for Ryma & Soumia each month
+- [x] Salary system: Build employee salary view page (read-only breakdown visible to page managers)
+- [x] Salary system: Wire routes, navigation, and role-based access (admin fills, employees view their own)
+- [x] Salary system: Vitest tests for salary calculation logic and DB helpers (8 tests passing)
+- [x] Add Upload Leads page access for Farah and Oussama (collectors now see Upload Leads tab alongside Orders)
+- [x] Fix assignment date bug: when selecting Tomorrow date, leads written to Google Sheet should show the selected date (tomorrow), not today's date
+- [x] Permanent lead storage: Create leads table in database schema
+- [x] Permanent lead storage: Store every assigned lead in DB at assignment time (assign + splitAssign)
+- [x] Permanent lead storage: Add tRPC procedures for querying historical leads with date/agent/market filters
+- [x] Permanent lead storage: Build frontend UI for historical lead browsing (Lead Archive page)
+- [x] Permanent lead storage: Write tests for lead storage and query logic (10 tests passing)
+- [x] Status sync: Add status/quantity/delivery fields to assigned_leads table
+- [x] Status sync: Smart fetch — only read each agent's own sheet+tab, match by phone number
+- [x] Status sync: Skip leads already in final status (confirmed/cancelled) to reduce API calls
+- [x] Status sync: Skip agents with no pending leads in DB
+- [x] Status sync: Background trigger (manual Sync Statuses button in Lead Archive)
+- [x] Status sync: Update Lead Archive UI to show status, delivery, quantity, notes columns + status filter
+- [x] Status sync: Write tests for sync matching logic (16 tests passing)
+- [x] User activity: Add lastActiveAt field to users table
+- [x] User activity: Heartbeat mechanism — update lastActiveAt on dashboardAuth.check (throttled 30s per user)
+- [x] User activity: tRPC procedure to query all users with online/away/offline status
+- [x] User activity: Frontend UI — ActiveUsers popover in nav bar with green/amber/gray dots, role labels, last seen time
+- [x] User activity: Write tests for activity tracking logic (13 tests passing)
+- [x] User activity: Restrict ActiveUsers popover to super_admin only
+- [x] UI fix: Space out the header/nav bar — reduced padding, tighter gaps, scrollable overflow, smaller right side items
+- [x] Nav redesign: Fix overcrowded nav bar — tabs too small and overlapping after spacing changes
+- [x] Nav redesign: Implement two-row layout with grouped dropdowns for 15+ tabs
+- [x] Bug fix: Team Activity page stays loading or shows nothing — root cause: touchUserActivity and getAllDashboardUsersActivity used bare `db` instead of `await getDb()`
+- [x] Sellmax: Capture ad source (column 9 after price) and map to offerUrl in 29-column export
+- [x] Sellmax: Show Ad Source column in Lead Preview table on Upload page
+- [x] Upload: "Done, I uploaded it" button should auto-confirm the upload in History (skip the extra step)
+- [x] BUG: Lead Archive status sync not working — rewritten to use Apps Script instead of Google Sheets API
+- [x] BUG: Sync Statuses says "Only admins can trigger sync" — fixed: getDashboardUserRole was called with username string instead of numeric ID, now uses JWT dashboardRole directly
+- [x] Archive: Page size selector (50, 100, 200, 500 leads per page)
+- [x] Archive: Filter by agent
+- [x] Archive: Filter by country/market
+- [x] Archive: Filter by week
+- [x] Archive: Auto-sync statuses twice per day (8 AM + 8 PM Algeria time)
+- [x] Archive: Optimize sync speed — 10 parallel spreadsheet fetches + 50 parallel DB updates per batch
+- [x] Archive: Sync already re-checks non-final statuses (postponed, no answer, etc.) — only skips confirmed/cancelled
+- [x] Fix: Collection history order details silently failing for large batches (234+ orders) — chunked insert with retry
+- [x] Fix: Add proper error logging for collection history database writes
+- [x] Feature: Sheet protection — lock columns A (Date), D (Delivery), F (SKU), M (Reference) as read-only
+- [x] Feature: Sheet protection — allow editing B (Status), C (Qty), E (Notes), G (Product), H (Name), I (Phone), J-K (Address), L (Price)
+- [x] Feature: Sheet protection — prevent row deletion/movement, allow adding rows at bottom only
+- [x] Feature: Sheet protection — UI trigger from dashboard to apply/remove protection
+- [x] Feature: Sheet protection — exempt manager emails (Hadjer + Boss) from all restrictions
+- [x] BUG: Sheet protection not working — agents can still delete rows after protection is applied (fixed: whole-sheet protection with unprotectedRanges)
+- [x] BUG FIX: Sheet protection silently failing — service account email must be included in editors list (error: "You cant remove yourself as an editor")
+- [x] Show Protection tab for user role (Hadjer + Oussama) — not just super_admin
+- [x] Fix sheet protection: allow agents to use filters (sort/filter) on protected sheets — added auto-created Filter Views per tab
+- [x] Give Hadjer (user role) access to apply/remove sheet protection API — not just super_admin
+- [ ] BUG: Filter views not appearing on agent sheets after protection is applied — need to verify creation and fix
+- [x] Remove auto-match commune logic from Ecotrack DHD export — always manual selection from dropdown
+- [x] Auto-append agent code to client name during lead assignment (format: "ClientName CODE" e.g. "oussama SH08")
+- [x] Add akoussama11@gmail.com to sheet protection editors list (above existing editors)
+- [x] BUG: Viconis date filter shows +7 leads vs actual sheet (857 vs 850 for March 1-5) — root cause: 7 orders with empty column N counted as NORMAL, fixed
+- [x] FIX: Exclude empty/unknown orderType from normal leads count — empty column N orders were being counted as NORMAL, now treated as UNKNOWN
+- [x] DHD Delivery Suivi: Save DHD API token as secret
+- [x] DHD Delivery Suivi: Backend tRPC procedures to fetch en_livraison and en_preparation orders from DHD API
+- [x] DHD Delivery Suivi: Frontend page with problem order list, filters by attempt type (client ne répond pas, injoignable, etc.)
+- [x] DHD Delivery Suivi: Recontact tracking — mark orders as saved/lost after calling client
+- [x] DHD Delivery Suivi: Write tests for DHD integration (38 tests passing)
+
+## DHD Delivery Suivi (Tracking) System
+- [x] DHD orders cache table in database schema (suivi_call_logs)
+- [x] DHD recontact logs table in database schema
+- [x] DHD sync settings table (last sync timestamp — tracked in-memory)
+- [x] Backend: DHD API client service (fetch all pages, handle pagination)
+- [x] Backend: Full sync — fetch all DHD orders and filter in-memory
+- [x] Backend: Filter problem orders locally (client ne répond pas, injoignable, reporté, annulé)
+- [x] Backend: tRPC procedures for suivi page (list problem orders, stats)
+- [x] Backend: tRPC procedure to log recontact attempt (Saved/Lost/No answer + notes)
+- [ ] Backend: Auto-sync cron job (every 10 minutes) — deferred, using on-demand sync
+- [x] Frontend: Suivi page in sidebar navigation
+- [x] Frontend: Problem orders table with filters (problem type, wilaya, status)
+- [x] Frontend: Recontact action modal (call result + notes)
+- [x] Frontend: Stats/KPIs (total problems, by type, recontact success rate)
+- [x] Frontend: Order detail view (full DHD data, delivery attempt history)
+- [x] Vitest tests for DHD sync and suivi logic (38 tests)
+- [x] BUG: Suivi page stuck on loading — fixed: increased parallel batch from 3→10, added 5-min server-side cache, force refresh button
+- [x] BUG: Suivi page still not loading — fixed: moved DHD API calls to frontend, updated token
+- [x] REFACTOR: Move DHD API calls from server-side to frontend (client-side) to avoid IP bans
+- [x] Frontend: DHD API client hook with page-by-page fetching and browser caching
+- [x] Server: Expose DHD token securely via tRPC procedure (one-time fetch)
+- [x] Frontend: Show problem orders with progressive scanning (page-by-page from browser)
+- [x] Keep server-side call log (suivi_call_logs) for recontact tracking
+- [x] BUG: Suivi 'Failed to fetch' — CORS blocks browser from calling DHD API directly
+- [x] FIX: Server-side proxy that fetches ONE page at a time (no timeout, no CORS)
+- [x] FIX: Frontend calls server proxy page-by-page progressively
+- [x] PERF: Suivi parallel batch fetching — fetch 10 pages at once server-side instead of 1 at a time
+- [x] FILTER: Exclude 'Delivered (Not Collected)' from problem orders — client already has product, payment pending collection
+- [x] FILTER: Remove ALL 'livré' statuses from suivi target (livré_non_encaissé, livré_encaissé, etc.) — delivery/money collection is not agent concern
+- [x] CACHE: Database table for cached suivi problem orders (tracking, client, phone, wilaya, amount, problem, status, lastUpdate)
+- [x] CACHE: Sync metadata table (lastSyncAt, pagesScanned, ordersFound, problemsFound, status)
+- [x] CACHE: Server-side sync job — scan last 7 days of DHD orders, upsert problem orders to DB
+- [x] CACHE: tRPC getCachedOrders — instant load from DB instead of live API scan
+- [x] CACHE: tRPC getSyncStatus — show "Last synced: X min ago" on frontend
+- [x] CACHE: tRPC triggerSync — manual force refresh button
+- [x] CACHE: Background cron job every 30 min to auto-sync
+- [x] CACHE: Update Suivi.tsx to load from cache instantly, show sync status, force refresh button
+- [x] CACHE: Vitest tests for sync logic and cached queries
+- [x] Protection: Add email shimadagenji257@gmail.com to the Protection page
+- [x] Assign: Add delete button per lead row in Lead Preview step to remove spam/bad leads before assigning
+- [x] Upload: Add delete button per lead row in preview tables for all partner converters (Sellmax, Ecomanager, Colivraison, Ecotrack DHD)
